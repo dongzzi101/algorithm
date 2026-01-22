@@ -1,13 +1,10 @@
-N = int(input())
-nums = input()
+N = input()
 
-arr = []
-
-for num in nums:
-    arr.append(num)
+nums = input().strip()
 
 answer = 0
-for i in arr:
-    answer += int(i)
+for num in nums:
+    answer += int(num)
 
 print(answer)
+
