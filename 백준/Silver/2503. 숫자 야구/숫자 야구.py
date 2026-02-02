@@ -1,40 +1,28 @@
-import sys
+from itertools import permutations
 
-n = int(input())
-hint = [list(map(int, input().split())) for _ in range(n)]
+N = int(input())
 
-answer = 0
-for a in range(1, 10):
-    for b in range(1, 10):
-        for c in range(1, 10):
+infos = [input().split() for _ in range(N)]
 
-            if a == b or b == c or c == a:
-                continue
+ans = 0
 
-            candidate = [a, b, c]
-            valid = True
+for cur in permutations(range(1, 10), 3):
+	ok = True
 
-            for number, strike, ball in hint:
-                num = [
-                    number // 100,
-                    (number // 10) % 10,
-                    number % 10
-                ]
+	for num, strike, ball in infos:
+		real_strike = real_ball = 0
 
-                ball_count = 0
-                strike_count = 0
+		for i in range(3):
+			if str(cur[i]) == num[i]:
+				real_strike += 1
+			elif str(cur[i]) in num:
+				real_ball += 1
 
-                for i in range(3):
-                    if candidate[i] == num[i]:
-                        strike_count += 1
-                    elif candidate[i] in num:
-                        ball_count += 1
+		if real_strike != int(strike) or real_ball != int(ball):
+			ok = False
+			break
 
-                if strike_count != strike or ball_count != ball:
-                    valid = False
-                    break
+	if ok:
+		ans +=1
 
-            if valid:
-                answer += 1
-
-print(answer)
+print(ans)
