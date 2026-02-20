@@ -1,51 +1,42 @@
-import sys
-sys.setrecursionlimit(int(1e6))
-
-def dfs(y, x, height):
-	global dx, dy, matrix, visited, N
-
-	if not (0 <= y < N and 0 <= x < N):
-		return
-	
-	if visited[y][x] or matrix[y][x] <= height:
-		return
-	
-	visited[y][x] = True
-
-	for i in range(4):
-		ny = y + dy[i]
-		nx = x + dx[i]
-		dfs(ny, nx, height)
+from collections import deque
 
 
-def get_num(height):
-	global dx, dy, N, matrix, visited
+def bfs(si, sj, h):
+	q = deque()
 
-	visited = [[False] * N for _ in range(N)]
-	num = 0
+	q.append((si, sj))
+	visit[si][sj] = 1
 
-	for y in range(N):
-		for x in range(N):
-			if (not visited[y][x]) and (matrix[y][x] > height):
-				dfs(y, x, height)
-				num += 1
-	return num
+	while q:
+		ci, cj = q.popleft()
+
+		for di, dj in ((-1,0), (1,0), (0,-1), (0,1)):
+			ni, nj = ci+di, cj+dj
+			if 0<= ni < N and 0 <= nj < N and visit[ni][nj] == 0 and arr[ni][nj] > h:
+				q.append((ni, nj))
+				visit[ni][nj] = 1
 
 
-dy = [-1, 0, 1, 0]
-dx = [0, 1, 0, -1]
+def solve(h):
+	count = 0
+	for i in range(N):
+		for j in range(N):
+			if visit[i][j] == 0 and arr[i][j] > h:
+				bfs(i, j, h)
+				count += 1
+
+	return count
+
 
 
 N = int(input())
-matrix = [list(map(int, input().split())) for _ in range(N)]
+arr = [list(map(int,input().split())) for _ in range(N)]
 
 ans = 0
-for height in range(101):
-	ans = max(ans, get_num(height))
+for h in range(100):
+	visit = [[0] * N for _ in range(N)]
+	ans = max(ans, solve(h))
 
 print(ans)
-
-
-
 
 
