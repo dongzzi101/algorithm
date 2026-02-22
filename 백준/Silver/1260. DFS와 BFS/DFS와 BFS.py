@@ -1,55 +1,55 @@
 from collections import deque
 
-def dfs(node):
-	global adj_list, visited
-
-	if visited[node]:
-		return
-	visited[node] = True
-
-	print(node, end=' ')
-
-	for adj_node in adj_list[node]:
-		dfs(adj_node)
-
-
-def bfs(snode):
-	global adj_list, visited
-
+def bfs(idx):
+	global visited, adjs
+	
 	q = deque()
-	q.append(snode)
-	visited[snode] = True
+	q.append(idx)
+	
+	visited[idx] = True
+
 
 	while q:
 		node = q.popleft()
-		print(node, end =' ')
+		print(node, end= ' ')
 
-		for adj_node in adj_list[node]:
-			if visited[adj_node]:
-				continue
-			q.append(adj_node)
-			visited[adj_node] = True
+		for adj in adjs[node]:
+			if not visited[adj]:	
+				q.append(adj)
+				visited[adj] = True
 
+
+
+def dfs(idx):
+	global visited, adjs
+
+	visited[idx] = True
+
+	print(idx, end=' ')
+
+	for adj in adjs[idx]:
+		if not visited[adj]:
+			dfs(adj)
 
 
 
 N, M, V = map(int, input().split())
 
-adj_list = [[] for _ in range(N+1)]
+adjs = [[] for _ in range(N+1)]
+
 for _ in range(M):
 	a, b = map(int, input().split())
-	adj_list[a].append(b)
-	adj_list[b].append(a)
+	adjs[a].append(b)
+	adjs[b].append(a)
 
-for node in range(1, N+1):
-	adj_list[node].sort()
+for i in range(1, N+1):
+	adjs[i].sort()
+
 
 visited = [False] * (N+1)
+
 dfs(V)
 print()
 
 visited = [False] * (N+1)
 bfs(V)
-print()
-
-
