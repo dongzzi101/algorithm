@@ -5,7 +5,7 @@ input = sys.stdin.readline
 def dfs(y, x):
     global answer
 
-    vistied[y][x] = True
+    map_[y][x] = False
 
     if y == M:
         answer = True
@@ -15,7 +15,7 @@ def dfs(y, x):
         ny = y + dy[i]
         nx = x + dx[i]
         
-        if map_[ny][nx] and not vistied[ny][nx]:
+        if map_[ny][nx]:
             dfs(ny, nx)
 
 
@@ -23,7 +23,6 @@ M, N = map(int, input().split())
 
 MAX = 1000 + 10
 map_ = [[False] * MAX for _ in range(MAX)]
-vistied = [[False] * MAX for _ in range(MAX)]
 
 dy = [-1, 0, 1, 0]
 dx = [0, 1, 0, -1]
