@@ -13,7 +13,6 @@ def dfs(idx):
 	for adj in adjs[idx]:		
 		if not visited[adj]:
 			answer[adj] = idx
-			visited[adj] = True
 			dfs(adj)
 
 
