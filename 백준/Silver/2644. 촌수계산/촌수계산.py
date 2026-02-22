@@ -1,40 +1,34 @@
-from collections import deque
+def dfs(start, depth):
+    global answer
 
-def bfs(start, end):
-	q = deque()
-	
-	q.append(start)
-	visited[start] = True
+    if start == end:
+        answer = depth
+        return True
 
-	while q:
-		c = q.popleft()
+    visited[start] = True
 
-		if c == end:
-			return visited[end] - 1
+    for adj in adjs[start]:
+        if not visited[adj]:
+            if dfs(adj, depth + 1):
+                return True
 
-		for n in adjs[c]:
-			if not visited[n]:
-				q.append(n)
-				visited[n] += visited[c] + 1
-
-	return -1
+    return False
 
 
-n = int(input())
+N = int(input())
 start, end = map(int, input().split())
+M = int(input())
+adjs = [[] for _ in range(N+1)]
 
-nn = int(input())
+for _ in range(M):
+	x, y = map(int, input().split())
+	adjs[x].append(y)
+	adjs[y].append(x)
 
-adjs = [[] for _ in range(n + 1)]
+visited = [False] * (N+1)
+answer = -1
+count = 0
 
+dfs(start, 0)
 
-for _ in range(nn):
-	a, b = map(int, input().split())
-	adjs[a].append(b)
-	adjs[b].append(a)
-
-
-visited = [False] * (n + 1)
-
-ans = bfs(start, end)
-print(ans)
+print(answer)
