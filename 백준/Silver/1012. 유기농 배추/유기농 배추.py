@@ -7,14 +7,14 @@ dx = [0, 1, 0, -1]
 
 
 def dfs(y, x):
-	global visited, map_
-	visited[y][x] = True
+	global map_
+	map_[y][x] = False
 
 	for i in range(4):
 		ny = y + dy[i]
 		nx = x + dx[i]
 
-		if map_[ny][nx] and not visited[ny][nx]:
+		if map_[ny][nx]:
 			dfs(ny, nx) 	
 
 
@@ -26,7 +26,6 @@ while T > 0:
 	 
 	M, N, K = map(int, input().split())
 	map_ = [[False] * MAX for _ in range(MAX)]
-	visited = [[False] * MAX for _ in range(MAX)]
 	
 	for _ in range(K):
 		x, y = map(int, input().split())
@@ -35,7 +34,7 @@ while T > 0:
 	answer = 0
 	for i in range(1, N+1):
 		for j in range(1, M+1):
-			if map_[i][j] and not visited[i][j]:
+			if map_[i][j]:
 				dfs(i, j)
 				answer += 1
 
