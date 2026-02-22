@@ -1,44 +1,44 @@
-from collections import deque
+import sys 
+sys.setrecursionlimit(10**6)
+input = sys.stdin.readline
+
+dy = [-1, 0, 1, 0]
+dx = [0, 1, 0, -1]
 
 
-dy = [-1,0,1,0]
-dx = [0,1,0,-1]
+def dfs(y, x):
+	global visited, map_
+	visited[y][x] = True
 
-def bfs(sy, sx):
-	q = deque()
-	q.append((sy, sx))
-	board[sy][sx] = 0
+	for i in range(4):
+		ny = y + dy[i]
+		nx = x + dx[i]
 
-	while q:
-		y, x = q.popleft()
-
-		for i in range(4):
-			ny = y + dy[i]
-			nx = x + dx[i]
-
-			if (0 <= ny < N) and (0 <= nx < M) and board[ny][nx] == 1:
-				board[ny][nx] = 0
-				q.append((ny, nx))
+		if map_[ny][nx] and not visited[ny][nx]:
+			dfs(ny, nx) 	
 
 
 T = int(input())
+MAX = 50 + 10
 
-for _ in range(T):
+while T > 0:
+	T -= 1
+	 
 	M, N, K = map(int, input().split())
-	board = [[0] * M for _ in range(N)]
-
+	map_ = [[False] * MAX for _ in range(MAX)]
+	visited = [[False] * MAX for _ in range(MAX)]
+	
 	for _ in range(K):
 		x, y = map(int, input().split())
-		board[y][x] = 1
+		map_[y + 1][x + 1] = True
 
-	count = 0
+	answer = 0
+	for i in range(1, N+1):
+		for j in range(1, M+1):
+			if map_[i][j] and not visited[i][j]:
+				dfs(i, j)
+				answer += 1
 
-	for i in range(N):
-		for j in range(M):
-			if board[i][j] == 1:
-				bfs(i, j)
-				count += 1
-
-	print(count)
+	print(answer)
 
 
