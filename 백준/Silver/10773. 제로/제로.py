@@ -1,16 +1,19 @@
+
+K = int(input())
+
 stack = []
 
-first_num = int(input())
+for i in range(K):
+	num = int(input())
 
-count = first_num
-while count >= 1:
-    first_num = int(input())
+	if num == 0:
+		stack.pop(-1)
+	else:
+		stack.append(num)
 
-    if first_num == 0:
-        stack.pop()
-        count -= 1
-    else:
-        stack.append(first_num)
-        count -= 1
 
-print(sum(stack))
+sum = 0
+for e in stack:
+	sum += e
+
+print(sum)
