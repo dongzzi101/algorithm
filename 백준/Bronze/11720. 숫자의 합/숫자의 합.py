@@ -1,10 +1,9 @@
-N = input()
+N = int(input())
+nums = input()
 
-nums = input().strip()
 
-answer = 0
-for num in nums:
-    answer += int(num)
+sum = 0
+for i in range(N):
+	sum += int(nums[i])
 
-print(answer)
-
+print(sum)
