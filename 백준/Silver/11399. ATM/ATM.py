@@ -1,16 +1,12 @@
 N = int(input())
-
 arr = list(map(int, input().split()))
-
 
 arr.sort()
 
-total = 0
+s = 0
+result = 0
+for a in arr:
+	s += a
+	result += s
 
-for i in range(N):
-    for j in range(i+1):
-        total += arr[j]
-
-print(total)
-
-
+print(result)
