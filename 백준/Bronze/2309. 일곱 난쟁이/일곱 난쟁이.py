@@ -1,16 +1,25 @@
+from itertools import combinations
 
-arr = [int(input()) for _ in range(9)]
+kids = []
 
-def solve():
-	N = 9
-	num = sum(arr) - 100
-	for i in range(N-1):
-		for j in range(i+1, N):
-			if arr[i] + arr[j] == num:
-				return arr[i], arr[j]
+for _ in range(9):
+	kids.append(int(input()))
 
-n, m = solve()
+kids.sort()
+target = sum(kids) - 100
 
-for i in sorted(arr):
-	if i != n and i != m:
-		print(i)
+i = 0
+while True:
+	a, b = list(combinations(kids, 2))[i]
+
+	if (a + b) == target:
+		break
+	i += 1
+
+kids.remove(a)
+kids.remove(b)
+
+for kid in kids:
+    print(kid)
+
+
