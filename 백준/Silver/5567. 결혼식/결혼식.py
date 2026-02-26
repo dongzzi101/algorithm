@@ -1,35 +1,27 @@
-from collections import deque
-
 N = int(input())
 M = int(input())
 
-adjs = [[] for _ in range(N+1)]
+adjs = [[] for _ in range(N)]
+
 
 for _ in range(M):
 	a, b = map(int, input().split())
-	adjs[a].append(b)
-	adjs[b].append(a)
+	adjs[a-1].append(b-1)
+	adjs[b-1].append(a-1)
 
+friend = [0] * N
 
-visited= [False] * (N+1)
+for i in adjs[0]:
+	friend[i] = 1
 
-q = deque()
-q.append((1, 0))
-visited[1] = True
+friend2 = [0] * N
 
-count = 0
-
-while q:
-	node, depth = q.popleft()
-
-	if depth == 2:
+for i in range(N):
+	if friend[i] == 0:
 		continue
 
-	for adj in adjs[node]:
-		if not visited[adj]:
-			q.append((adj, depth+1))
-			visited[adj] = True
-			count += 1
+	for j in adjs[i]:
+		if j != 0 and friend[j] == 0:
+			friend2[j] = 1
 
-print(count)
-
+print(sum(friend) + sum(friend2))
