@@ -1,22 +1,14 @@
-import sys
+check = [0] * 31
 
-students_number = []
+for i in range(28):
+	n = int(input())
+	check[n] = 1
 
-for student in sys.stdin:
-    students_number.append(int(student))
+answer = []
+for i in range(1, 31):
+	if check[i] == 0:
+		answer.append(i)
 
-students_number.sort()
+print(answer[0])
+print(answer[1])
 
-all_students_number = []
-
-for _ in range(1, 31):
-    all_students_number.append(_)
-
-absent_student = []
-
-for num in all_students_number:
-    if num not in students_number:
-        absent_student.append(num)
-
-for _ in absent_student:
-    print(_)
