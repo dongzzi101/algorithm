@@ -1,12 +1,9 @@
-import sys
 
-n = int(input())
+T = int(input())
 
-result = []
-
-for _ in range(n):
-    nn = int(input())
-    nums = list(map(int, input().split()))
-    nums.sort()
-
-    print(nums[0], nums[-1])
+for _ in range(T):
+	N = int(input())
+	result = list(map(int, input().split()))
+	print(min(result), max(result))
+	
+	
