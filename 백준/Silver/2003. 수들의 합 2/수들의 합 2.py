@@ -1,28 +1,19 @@
 N, M = map(int, input().split())
-
 arr = list(map(int, input().split()))
 
-left = 0
-right = 0
+ans = 0
 
-sum = arr[0]
+right = -1
+cur_sum = 0
 
-count = 0
-
-while True:
-	if sum == M:
-		count += 1
-
-	if sum >= M:
-		left += 1
-		sum -= arr[left-1]
-	
-	else:
-		if right == N - 1:
-			break
-		
+for left in range(N):
+	while (right + 1 < N) and (cur_sum + arr[right+1] <= M):
 		right += 1
-		sum += arr[right]
-		
+		cur_sum += arr[right]
+	
+	if cur_sum == M:
+		ans += 1
 
-print(count)
+	cur_sum -= arr[left]
+
+print(ans)
