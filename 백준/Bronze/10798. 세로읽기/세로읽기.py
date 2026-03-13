@@ -1,7 +1,13 @@
-words = [input().rstrip() for _ in range(5)]
-max_len = max(len(word) for word in words)
+word_graph = []
 
-for i in range(max_len):
-    for j in range(5):
-        if i < len(words[j]):
-            print(words[j][i], end='')
+for _ in range(5):
+    word_graph.append(list(input()))
+
+result = []
+
+for x in range(15):  
+    for y in range(5):
+        if x < len(word_graph[y]):
+            result.append(word_graph[y][x])
+
+print("".join(result))
