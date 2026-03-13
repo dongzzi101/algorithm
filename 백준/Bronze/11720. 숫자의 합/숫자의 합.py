@@ -1,9 +1,3 @@
-N = int(input())
-nums = input()
-
-
-sum = 0
-for i in range(N):
-	sum += int(nums[i])
-
-print(sum)
+n = int(input())
+arr = list(map(int, input()))
+print(sum(arr))
