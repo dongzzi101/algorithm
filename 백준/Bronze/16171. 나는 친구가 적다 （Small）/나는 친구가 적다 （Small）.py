@@ -1,14 +1,14 @@
-S = input()
-K = input()
+s = input()
+k = input()
 
-filtered = []
-for ch in S:
-    if ch.isalpha():          
-        filtered.append(ch)
+words = []
+for i in range(len(s)):
+	if not s[i].isdigit():
+		words.append(s[i])
 
-filtered_S = ''.join(filtered)
+words = ''.join(words)
 
-if K in filtered_S:           
-    print(1)
+if k in words:
+	print(1)
 else:
-    print(0)
+	print(0)
