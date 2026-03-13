@@ -1,7 +1,4 @@
 S = input()
 P = input()
 
-if P in S:
-    print(1)
-else:
-    print(0)
+print(1 if P in S else 0)
