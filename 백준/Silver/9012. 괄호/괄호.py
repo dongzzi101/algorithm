@@ -1,21 +1,21 @@
-n = int(input())
+t = int(input())
 
-for _ in range(n):
-    s = input().strip()
-    stack = []
-    valid = True
+for _ in range(t):
+	stack = []
+	vps = input()
 
-    for ch in s:
-        if ch == "(":
-            stack.append(ch)
-        else:
-            if not stack:
-                valid = False
-                break
-            stack.pop()
+	for ch in vps:
+		if ch == "(":
+			stack.append(ch)
 
-    if valid and not stack:
-        print("YES")
-    else:
-        print("NO")
+		else:
+			if len(stack) == 0:
+				print("NO")
+				break
+			else:
+				stack.pop()
+
+	else:
+		print("YES" if len(stack) == 0 else "NO")
+
 
