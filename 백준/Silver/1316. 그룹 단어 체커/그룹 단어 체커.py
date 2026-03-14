@@ -1,22 +1,26 @@
-N = int(input())
+n = int(input())
+
 count = 0
 
-for _ in range(N):
+for _ in range(n):
+    letter = [0] * 26
     word = input()
-
-    exist = []
     prev = ''
-    ok = True
+
+    is_group = True
 
     for ch in word:
+        idx = ord(ch) - ord('a')
+
         if ch != prev:
-            if ch in exist:
-                ok = False
+            if letter[idx]:
+                is_group = False
                 break
-            exist.append(ch)
+            letter[idx] = 1
+
         prev = ch
 
-    if ok:
+    if is_group:
         count += 1
 
 print(count)
