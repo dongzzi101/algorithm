@@ -1,20 +1,24 @@
-N, M = map(int, input().split())
+n, m = map(int, input().split())
 
-names = set()
-for _ in range(N):
-    names.add(input())
+nobody = {}
+
+for _ in range(n+m):
+	name = input()
+
+	if name in nobody:
+		nobody[name] += 1
+	else:
+		nobody[name] = 1
 
 result = []
-for _ in range(M):
-    name = input()
-    if name in names:
+
+for name in nobody:
+    if nobody[name] > 1:
         result.append(name)
 
 result.sort()
 
 print(len(result))
 
-for i in result:
-    print(i)
-
-
+for name in result:
+    print(name)
