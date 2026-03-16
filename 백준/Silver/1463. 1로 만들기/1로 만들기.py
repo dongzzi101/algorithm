@@ -1,15 +1,20 @@
 N = int(input())
 
-dp = [0] * (N + 1)
+
+dp = [0] * (N+1)
+
 dp[1] = 0
 
-for i in range(2, N + 1):
-    dp[i] = dp[i - 1] + 1
+for n in range(2, N+1):
+	
+	dp[n] = dp[n-1] + 1
+	
+	if n % 2 == 0:
+		dp[n] = min(dp[n // 2] + 1, dp[n])
 
-    if i % 2 == 0:
-        dp[i] = min(dp[i], dp[i // 2] + 1)
-
-    if i % 3 == 0:
-        dp[i] = min(dp[i], dp[i // 3] + 1)
+	if n % 3 == 0:
+		dp[n] = min(dp[n], dp[n // 3] + 1)
+	
 
 print(dp[N])
+
