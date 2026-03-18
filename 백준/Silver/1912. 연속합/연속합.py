@@ -1,12 +1,15 @@
 N = int(input())
-arr = list(map(int, input().split()))
 
-prefix = [0 for _ in range(N + 1)]
+arr = [0] + list(map(int, input().split()))
 
-for i in range(N):
-    prefix[i + 1] = max(prefix[i] + arr[i], arr[i])
+dp = [0] * (N+1)
 
 
-print(max(prefix[1:]))
+if max(arr[1:]) < 0:
+	print(max(arr[1:]))
 
+else:
+	for i in range(1, N+1):
+		dp[i] = max(dp[i-1] + arr[i], 0)
 
+	print(max(dp))
