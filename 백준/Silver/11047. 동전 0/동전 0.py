@@ -1,19 +1,24 @@
 N, K = map(int, input().split())
 
 coins = []
+for _ in range(N):
+	coins.append(int(input()))
 
-for i in range(N):
-    coins.append(int(input()))
-
-coins.reverse()
+coins.sort(reverse=True)
 
 count = 0
-for coin in coins:
-    if K == 0:
-        break
 
-    usable = K // coin
-    count += usable
-    K -= coin * usable
+for i in range(len(coins)):
+	if coins[i] > K:
+		continue
+	else:
+		use = K // coins[i]
+		count += use
+		K -= (coins[i] * use)
+
+	if K == 0:
+		break
 
 print(count)
+
+
