@@ -1,33 +1,34 @@
-import sys
+from collections import deque
 
-n = int(input())
+
+N = int(input())
 nn = int(input())
-adjs = [[] for _ in range(n + 1)]
-"""
-[
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-]
-"""
-for _ in range(nn):
-    a, b = map(int, input().split())
-    adjs[a].append(b)
-    adjs[b].append(a)
 
-# print(adjs)
-stack = [1]
-visited = set()
-while stack:
-    node = stack.pop()
-    # print(node)
-    if node not in visited:
-        visited.add(node)
-        for adj in adjs[node]:
-            if adj not in visited:
-                stack.append(adj)
-print(len(visited) - 1)
+adjs = [[] * (N+1) for _ in range(N+1)]
+
+for _ in range(nn):
+	a, b = map(int, input().split())
+	adjs[a].append(b)
+	adjs[b].append(a)
+
+
+q = deque()
+visited = [False] * (N+1)
+
+q.append(1)
+visited[1] = True
+
+count = 0
+
+while q:
+	node = q.popleft()
+
+	for adj in adjs[node]:
+		if not visited[adj]:
+			count += 1
+			q.append(adj)
+			visited[adj] = True
+
+print(count)
+
+
