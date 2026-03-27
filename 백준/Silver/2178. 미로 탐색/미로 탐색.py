@@ -1,18 +1,22 @@
 from collections import deque
 
-N, M = map(int, input().split())
-maps = [ list(map(int, input()))  for _ in range(N)]
+n, m = map(int, input().split())
 
-
-visited = [[False] * M for _ in range(N)]
-
-q = deque()
-q.append((0,0))
-
-visited[0][0] = True
+board = [[0]*(m+1)]
+for _ in range(n):
+    board.append([0] + list(map(int, input())))
 
 dy = [1, 0, -1, 0]
 dx = [0, 1, 0, -1]
+
+q = deque()
+q.append((1,1))
+
+visited = [[False] * (m+1) for _ in range(n+1)]
+visited[1][1] = True
+
+dist = [[0]*(m+1) for _ in range(n+1)]
+dist[1][1] = 1
 
 while q:
 	y, x = q.popleft()
@@ -21,9 +25,10 @@ while q:
 		ny = y + dy[i]
 		nx = x + dx[i]
 
-		if 0 <= nx < M and 0 <= ny < N:
-			if maps[ny][nx] == 1:
-				maps[ny][nx] = maps[y][x] + 1
+		if (1 <= ny <= n) and (1 <= nx <= m):
+			if not visited[ny][nx] and board[ny][nx] == 1:
 				q.append((ny, nx))
+				visited[ny][nx] = True
+				dist[ny][nx] = dist[y][x] + 1
 
-print(maps[N-1][M-1])
+print(dist[n][m])
