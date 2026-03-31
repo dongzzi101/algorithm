@@ -1,16 +1,15 @@
-answer = []
-
 while True:
-    s = input()
+    sentence = input()
 
-    if s == "END":
+    if sentence == "END":
         break
 
-    answer.append(s[::-1])
+    stack = []
 
-for sen in answer:
-    print(sen)
+    for ch in sentence:
+    	stack.append(ch)
+        
+    while stack:
+        print(stack.pop(), end='')
 
-
-
-
+    print()
