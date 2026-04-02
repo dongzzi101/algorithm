@@ -1,14 +1,14 @@
-check = [0] * 31
+from collections import defaultdict
 
-for i in range(28):
-	n = int(input())
-	check[n] = 1
+student_map = defaultdict(int)
 
-answer = []
+for _ in range(28):
+    n = int(input())
+    student_map[n] -= 1
+
 for i in range(1, 31):
-	if check[i] == 0:
-		answer.append(i)
+    if student_map[i] == 0:
+        print(i)
 
-print(answer[0])
-print(answer[1])
+
 
