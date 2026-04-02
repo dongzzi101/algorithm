@@ -9,17 +9,24 @@ def solution(queue1, queue2):
     target = total // 2
     
     main_sum = sum(main_que)
-    for cnt in range(0, int(2e6)):
-        if main_sum == target: 
-            return cnt
+    
+    count = 0
+    limit = len(queue1) * 3 
+    
+    while count <= limit:
+        if main_sum == target:
+            return count
+        
         elif main_sum < target:
-            val = sub_que.popleft()
-            main_sum += val
-            main_que.append(val)
-        elif main_sum > target: 
-            val = main_que.popleft()
-            main_sum -= val
-            sub_que.append(val)
+            value = sub_que.popleft()
+            main_sum += value
+            main_que.append(value)
+            count += 1
+        elif main_sum > target:
+            value = main_que.popleft()
+            main_sum -= value
+            sub_que.append(value)
+            count += 1
         
     return -1
             
