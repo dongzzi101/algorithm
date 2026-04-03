@@ -1,29 +1,31 @@
 from collections import deque
 
-N = int(input())
+n = int(input())
 
-adjs = [[] for _ in range(N+1)]
 
-for _ in range(N-1):
-    a, b = map(int, input().split())
-    adjs[a].append(b)
-    adjs[b].append(a)
+adjs = [[] * n for _ in range(n+1)]
 
-q = deque([1])
+for _ in range(n-1):
+	a, b = map(int, input().split())
+	adjs[a].append(b)
+	adjs[b].append(a)
 
-visited = [False] * (N+1)
+q = deque()
+q.append(1)
+
+visited = [False] * (n+1)
 visited[1] = True
 
-parents = [0] * (N+1)
+parents = [0] * (n+1)
 
 while q:
-    node = q.popleft()
+	node = q.popleft()
 
-    for adj in adjs[node]:
-        if not visited[adj]:
-            parents[adj] = node
-            visited[adj] = True
-            q.append(adj)
+	for adj in adjs[node]:
+		if not visited[adj]:
+			parents[adj] = node
+			visited[adj] = True
+			q.append(adj)
 
-for i in range(2, N+1):
-    print(parents[i])
+
+print(*parents[2:])
