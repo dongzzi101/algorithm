@@ -1,9 +1,6 @@
-
 T = int(input())
 
 for _ in range(T):
-	N = int(input())
-	result = list(map(int, input().split()))
-	print(min(result), max(result))
-	
-	
+	n = int(input())
+	arr = list(map(int, input().split()))
+	print(min(arr), max(arr))
