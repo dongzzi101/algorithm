@@ -1,14 +1,12 @@
+from itertools import combinations
+
 def solution(numbers):
     answer = []
-    nums = []
+    s = set()
     
-    for i in range(len(numbers) - 1):
-        for j in range(i+1, len(numbers)):
-            nums.append(numbers[i] + numbers[j])
+    for i in combinations(numbers, 2):
+        s.add(sum(i))
     
     
-    nums = list(set(nums))
-    nums.sort()
-    answer = nums
-            
+    answer = sorted(s)
     return answer
