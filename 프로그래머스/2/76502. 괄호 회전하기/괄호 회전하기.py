@@ -1,29 +1,29 @@
-def is_valid(t):
-    stack=[]
-    match = {')' : '(',']' : '[','}' : '{'}
-    
-    for ch in t:
-        if ch in "([{":
-            stack.append(ch)
-        else:
-            if not stack:
-                return False
-            if stack[-1] != match[ch]:
-                return False
-            stack.pop()
-    
-    return len(stack) == 0
-        
 def solution(s):
-    n = len(s)
-    arr = s+s
     answer = 0
     
-    for i in range(n):
+    def is_valid(s):
+        stack = []
+        pairs = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
         
-        t = arr[i:i+n]
+        for ch in s:
+            if ch in "([{":
+                stack.append(ch)
+            else:
+                if len(stack) == 0:
+                    return 0
+                
+                top = stack.pop()
+                if pairs[ch] != top:
+                    return 0
         
-        if is_valid(t):
-            answer += 1
+        return 1 if not stack else 0
+    
+    for _ in range(len(s)):
+        answer += is_valid(s)
+        s = s[1:] + s[0]
     
     return answer
