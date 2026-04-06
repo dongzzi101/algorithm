@@ -1,53 +1,32 @@
-import sys
+cash = int(input())
+arr = list(map(int, input().split()))
 
-money = int(input())
-stock_prices = list(map(int, input().split()))
+jh, sm = cash, cash
+jh_quantity, sm_quantity = 0, 0
 
-def bnp(money, stock_prices):
-    quantity = 0
+for i in range(len(arr)):
 
-    for day in range(14):
-        if money >= stock_prices[day]:
-            bought = money // stock_prices[day]
-            quantity += bought
-            money -= bought * stock_prices[day]
+    if jh >= arr[i]:
+        quantity = jh // arr[i]
+        jh_quantity += quantity
+        jh -= quantity * arr[i]
 
-    return (quantity * stock_prices[-1]) + money
+    if i >= 3:
+        if arr[i-3] < arr[i-2] < arr[i-1]:
+            sm += sm_quantity * arr[i]
+            sm_quantity = 0
 
-def timing(money, stock_prices):
-    quantity = 0
-    up_count = 0
-    down_count = 0
+        elif arr[i-3] > arr[i-2] > arr[i-1]:
+            quantity = sm // arr[i]
+            sm_quantity += quantity
+            sm -= quantity * arr[i]
+            
+jh_total = (jh_quantity * arr[-1]) + jh
+sm_total = (sm_quantity * arr[-1]) + sm
 
-    for day in range(1, 14):
-        if stock_prices[day] > stock_prices[day - 1]:
-            up_count += 1
-            down_count = 0
-        elif stock_prices[day] < stock_prices[day - 1]:
-            down_count += 1
-            up_count = 0
-        else:
-            up_count = 0
-            down_count = 0
-
-        if down_count == 3:
-            bought = money // stock_prices[day]
-            quantity += bought
-            money -= bought * stock_prices[day]
-
-        elif up_count == 3:
-            money += quantity * stock_prices[day]
-            quantity = 0
-
-    return (quantity * stock_prices[-1]) + money
-
-
-bnp_result = bnp(money, stock_prices)
-timing_result = timing(money, stock_prices)
-
-if bnp_result > timing_result:
-    print("BNP")
-elif bnp_result < timing_result:
-    print("TIMING")
+if jh_total > sm_total:
+	print("BNP")
+elif jh_total < sm_total:
+	print("TIMING")
 else:
-    print("SAMESAME")
+	print("SAMESAME")
