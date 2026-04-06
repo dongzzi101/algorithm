@@ -1,27 +1,29 @@
-n = int(input())
-
-bulbs = list(map(int, input().split()))
+N = int(input())
+switches = list(map(int, input().split()))
 
 students = int(input())
 
 for _ in range(students):
-    gender, number = map(int, input().split())
+    gender, target = map(int, input().split())
 
     if gender == 1:
-        for i in range(number - 1, n, number):
-            bulbs[i] = 1 - bulbs[i]
-
+        for i in range(target, N + 1, target):
+            switches[i - 1] = 1 - switches[i - 1]
 
     else:
-        center = number - 1
-        left = center - 1
-        right = center + 1
-        while left >= 0 and right < n and bulbs[left] == bulbs[right]:
+        idx = target - 1
+        switches[idx] = 1 - switches[idx]
+
+        left = idx - 1
+        right = idx + 1
+
+        while left >= 0 and right < N and switches[left] == switches[right]:
+            switches[left] = 1 - switches[left]
+            switches[right] = 1 - switches[right]
             left -= 1
             right += 1
 
-        for i in range(left + 1, right):
-            bulbs[i] = 1 - bulbs[i]
-
-for i in range(0, n, 20):
-    print(*bulbs[i:i+20])
+for i in range(N):
+    print(switches[i], end=' ')
+    if (i + 1) % 20 == 0:
+        print()
