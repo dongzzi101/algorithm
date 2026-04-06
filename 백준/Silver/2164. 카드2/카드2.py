@@ -1,15 +1,13 @@
 from collections import deque
 
-N = int(input())
+n = int(input())
 
-arr = deque()
+q = deque(range(1, n+1))
 
-for i in range(1, N + 1):
-    arr.append(i)
+while q:
+	if len(q) == 1:
+		print(*q)
+		break
 
-while len(arr) > 1:
-    arr.popleft()
-    arr.append(arr.popleft())
-
-print(arr[0])
-
+	q.popleft()
+	q.append(q.popleft())
