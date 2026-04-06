@@ -1,23 +1,26 @@
 def solution(dirs):
-    visited = set()
-    
-    x, y = 0, 0
-    
-    move = {
-        'U': (0, 1),
-        'D': (0, -1),
-        'R': (1, 0),
-        'L': (-1, 0)
+    commands = {
+        "U": (1, 0),
+        "D": (-1, 0),
+        "R": (0, 1),
+        "L": (0, -1)
     }
     
-    for d in dirs:
-        dx, dy = move[d]
-        nx, ny = x + dx, y + dy
+    cur_y, cur_x = 0, 0
+    visited = set()
+    
+    for dir in dirs:
+        dy, dx = commands[dir]
         
-        if -5 <= nx <= 5 and -5 <= ny <= 5:
-            visited.add((x, y, nx, ny))
-            visited.add((nx, ny, x, y))
+        ny = cur_y + dy
+        nx = cur_x + dx
+        
+        if -5 <= ny <= 5 and -5 <= nx <= 5:
             
-            x, y = nx, ny
+            if (cur_y, cur_x, ny, nx) not in visited:
+                visited.add((cur_y, cur_x, ny, nx))
+                visited.add((ny, nx, cur_y, cur_x))
+            
+            cur_y, cur_x = ny, nx
     
     return len(visited) // 2
