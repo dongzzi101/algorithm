@@ -1,19 +1,16 @@
-import sys
+N = int(input())
 
-n = int(input())
-
-pos = [-1] * 11
+cow_map = {}
 count = 0
 
-for i in range(n):
-    num, direction = map(int, input().split())
+for _ in range(N):
+	cow_number, pos = map(int, input().split())
 
-    if pos[num] == -1:
-        pos[num] = direction
-        continue
+	if cow_number in cow_map:
+		if cow_map[cow_number] != pos:
+			count += 1
 
-    if pos[num] != direction:
-        count += 1
-        pos[num] = direction
+	cow_map[cow_number] = pos
 
 print(count)
+
