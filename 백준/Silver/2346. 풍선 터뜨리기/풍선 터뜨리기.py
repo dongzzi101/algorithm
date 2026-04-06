@@ -1,21 +1,27 @@
 from collections import deque
 
 N = int(input())
-moves = list(map(int, input().split()))
+pos = list(map(int, input().split()))
 
-q = deque((i + 1, moves[i]) for i in range(N))
-answer = []
+q = deque()
+
+for i in range(N):
+    q.append((i+1, pos[i]))
+
+result = []
 
 while q:
-    idx, k = q.popleft()
-    answer.append(idx)
+    balloon, move = q.popleft()
+    result.append(balloon)
 
     if not q:
-        break
+    	break
 
-    if k > 0:
-        q.rotate(-(k - 1))
+    if move > 0:
+        for _ in range(move - 1):
+            q.append(q.popleft())
     else:
-        q.rotate(-k)
+        for _ in range(abs(move)):
+            q.appendleft(q.pop())
 
-print(*answer)
+print(*result)
