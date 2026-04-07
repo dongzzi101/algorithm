@@ -1,14 +1,14 @@
-n = int(input())
+N = int(input())
 
-extension_map = {}
+extends_map = {}
+for _ in range(N):
+	name, extend = input().split(".")
 
-for _ in range(n):
-    name, extension = input().split(".")
-    
-    if extension in extension_map:
-        extension_map[extension] += 1
-    else:
-        extension_map[extension] = 1
+	if extend in extends_map:
+		extends_map[extend] += 1
+	else:
+		extends_map[extend] = 1
 
-for extension in sorted(extension_map):
-    print(extension, extension_map[extension])
+
+for i in sorted(extends_map):
+	print(i, extends_map[i])
