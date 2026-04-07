@@ -1,17 +1,13 @@
-n = int(input())
+N = int(input())
 
+words = []
+for _ in range(N):
+	words.append(input())
 
-result = set()
+words = list(set(words))
 
-for _ in range(n):
-	result.add(input())
+words.sort(key = lambda x : (len(x), x))
 
-result = list(result)
-
-result.sort(key=lambda x: (len(x), x))
-
-for word in result:
-    print(word)
-
-
+for word in words:
+	print(word)
 
