@@ -1,35 +1,35 @@
 N = int(input())
 target = int(input())
 
-board = [[0]*N for _ in range(N)]
+graph = [[0]*N for _ in range(N)]
 
-y = x = N // 2
-num = 1
-board[y][x] = num
+x, y = 0, 0
+num = N * N
 
-dy = [-1, 0, 1, 0] 
-dx = [0, 1, 0, -1]
-
-step = 1
 dir = 0
 
-answer_y, answer_x = y, x
+dx = [0, 1, 0, -1]
+dy = [1, 0, -1, 0]
 
-while num < N * N:
-    for _ in range(2): 
-        for _ in range(step):
-            if num >= N*N:
-                break
-            y += dy[dir]
-            x += dx[dir]
-            num += 1
-            board[y][x] = num
-            if num == target:
-                answer_y, answer_x = y, x
+while num > 0:
+    graph[y][x] = num
+
+    if num == target:
+        ty, tx = y, x
+
+    num -= 1
+
+    nx = x + dx[dir]
+    ny = y + dy[dir]
+
+    if nx < 0 or nx >= N or ny < 0 or ny >= N or graph[ny][nx] != 0:
         dir = (dir + 1) % 4
-    step += 1
+        nx = x + dx[dir]
+        ny = y + dy[dir]
 
-for row in board:
+    x, y = nx, ny
+
+for row in graph:
     print(*row)
 
-print(answer_y + 1, answer_x + 1)
+print(ty+1, tx+1)
