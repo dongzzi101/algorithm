@@ -1,15 +1,8 @@
+
 while True:
-    sentence = input()
+	s = input()
 
-    if sentence == "END":
-        break
+	if s == "END":
+		break
 
-    stack = []
-
-    for ch in sentence:
-    	stack.append(ch)
-        
-    while stack:
-        print(stack.pop(), end='')
-
-    print()
+	print(s[::-1])
