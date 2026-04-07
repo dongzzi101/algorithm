@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 keyboard = [
     "qwertyuiop",
     "asdfghjkl",
@@ -5,31 +8,32 @@ keyboard = [
 ]
 
 pos = {}
-for r in range(len(keyboard)):
-    for c in range(len(keyboard[r])):
-        pos[keyboard[r][c]] = (r, c)
+for i in range(len(keyboard)):
+    for j in range(len(keyboard[i])):
+        pos[keyboard[i][j]] = (i, j)
 
-left_only = set("qwertasdfgzxcv")
-right_only = set("yuiophjklnm")
+left_keys = set("qwertasdfgzxcv")
+right_keys = set("yuiophjklnm")
 
-left_hand, right_hand = input().split()
-word = input()
+left_init, right_init = input().split()
+targets = input().strip()
 
-left_pos = pos[left_hand]
-right_pos = pos[right_hand]
+left = pos[left_init]
+right = pos[right_init]
 
-time = 0
+count = 0
 
-for ch in word:
-    target = pos[ch]
+for t in targets:
+    target = pos[t]
 
-    if ch in left_only:
-        dist = abs(left_pos[0] - target[0]) + abs(left_pos[1] - target[1])
-        time += dist + 1
-        left_pos = target
-    else:
-        dist = abs(right_pos[0] - target[0]) + abs(right_pos[1] - target[1])
-        time += dist + 1
-        right_pos = target
+    if t in left_keys:
+        dist = abs(left[0] - target[0]) + abs(left[1] - target[1])
+        count += dist + 1
+        left = target
 
-print(time)
+    else:  
+        dist = abs(right[0] - target[0]) + abs(right[1] - target[1])
+        count += dist + 1
+        right = target
+
+print(count)
