@@ -1,33 +1,33 @@
-s = input().rstrip()
+s = input()
 
-result = []
-temp = []
+result = ""
+temp = ""
 inside_tag = False
 
 for ch in s:
-    if ch == "<":
-        if temp:
-            result.extend(reversed(temp))
-            temp.clear()
+    if ch == '<':
+        result += temp[::-1]
+        temp = ""
         inside_tag = True
-        result.append(ch)
+        result += ch
 
-    elif ch == ">":
+    elif ch == '>':
         inside_tag = False
-        result.append(ch)
+        result += ch
 
-    elif inside_tag:
-        result.append(ch)
+    elif ch == ' ':
+        if inside_tag:
+            result += ch
+        else:
+            result += temp[::-1] + ' '
+            temp = ""
 
     else:
-        if ch == " ":
-            result.extend(reversed(temp))
-            temp.clear()
-            result.append(" ")
+        if inside_tag:
+            result += ch
         else:
-            temp.append(ch)
+            temp += ch
 
-if temp:
-    result.extend(reversed(temp))
+result += temp[::-1]
 
-print("".join(result))
+print(result)
