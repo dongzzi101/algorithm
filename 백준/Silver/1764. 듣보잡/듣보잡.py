@@ -1,32 +1,10 @@
 N, M = map(int, input().split())
 
-no_hear_dict = {}
-no_seen_dict = {}
+no_hear = set(input() for _ in range(N))
+no_seen = set(input() for _ in range(M))
 
-for _ in range(N):
-	name = input()
-	if name in no_hear_dict:
-		no_hear_dict[name] += 1
-	else:
-		no_hear_dict[name] = 0
+result = sorted(no_hear & no_seen)
 
-for _ in range(M):
-	name = input()
-	if name in no_seen_dict:
-		no_seen_dict[name] += 1
-	else:
-		no_seen_dict[name] = 0
-
-no_hear_seen = []
-
-for name in no_hear_dict:
-    if name in no_seen_dict:
-        no_hear_seen.append(name)
-
-no_hear_seen.sort()
-
-print(len(no_hear_seen))
-for name in no_hear_seen:
-    print(name)
-
-
+print(len(result))
+for name in result:
+	print(name)
