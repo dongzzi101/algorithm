@@ -1,14 +1,12 @@
-s = input()
-k = input()
+S = input()
+K = input()
 
-words = []
-for i in range(len(s)):
-	if not s[i].isdigit():
-		words.append(s[i])
+result = ""
+for ch in S:
+	if ch.isdigit():
+		continue
+	
+	result += ch
 
-words = ''.join(words)
 
-if k in words:
-	print(1)
-else:
-	print(0)
+print("1" if K in result else "0")
