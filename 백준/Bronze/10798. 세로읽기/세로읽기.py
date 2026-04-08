@@ -1,13 +1,6 @@
-word_graph = []
+board = [input() for _ in range(5)]
 
-for _ in range(5):
-    word_graph.append(list(input()))
-
-result = []
-
-for x in range(15):  
-    for y in range(5):
-        if x < len(word_graph[y]):
-            result.append(word_graph[y][x])
-
-print("".join(result))
+for j in range(15):      
+    for i in range(5):
+        if j < len(board[i]):
+            print(board[i][j], end="")
