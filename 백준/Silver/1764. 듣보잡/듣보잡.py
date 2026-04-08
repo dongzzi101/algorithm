@@ -1,24 +1,32 @@
-n, m = map(int, input().split())
+N, M = map(int, input().split())
 
-nobody = {}
+no_hear_dict = {}
+no_seen_dict = {}
 
-for _ in range(n+m):
+for _ in range(N):
 	name = input()
-
-	if name in nobody:
-		nobody[name] += 1
+	if name in no_hear_dict:
+		no_hear_dict[name] += 1
 	else:
-		nobody[name] = 1
+		no_hear_dict[name] = 0
 
-result = []
+for _ in range(M):
+	name = input()
+	if name in no_seen_dict:
+		no_seen_dict[name] += 1
+	else:
+		no_seen_dict[name] = 0
 
-for name in nobody:
-    if nobody[name] > 1:
-        result.append(name)
+no_hear_seen = []
 
-result.sort()
+for name in no_hear_dict:
+    if name in no_seen_dict:
+        no_hear_seen.append(name)
 
-print(len(result))
+no_hear_seen.sort()
 
-for name in result:
+print(len(no_hear_seen))
+for name in no_hear_seen:
     print(name)
+
+
