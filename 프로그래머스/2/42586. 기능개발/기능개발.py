@@ -1,22 +1,21 @@
-from collections import deque
+import math
 
 def solution(progresses, speeds):
-    progresses = deque(progresses)
-    speeds = deque(speeds)
-    
     answer = []
     
-    while progresses:
-        for i in range(len(progresses)):
-            progresses[i] += speeds[i]
-        
-        count = 0
-        while progresses and progresses[0] >= 100:
-            progresses.popleft()
-            speeds.popleft()
+    n = len(progresses)
+    days_left = [math.ceil((100 - progresses[i]) / speeds[i]) for i in range(n)]
+    
+    count = 0
+    max_day = days_left[0]
+    
+    for i in range(n):
+        if days_left[i] <= max_day:
             count += 1
-        
-        if count > 0:
+        else:
             answer.append(count)
-        
-    return answer
+            count = 1
+            max_day = days_left[i]
+    
+    answer.append(count)
+    return answer  
