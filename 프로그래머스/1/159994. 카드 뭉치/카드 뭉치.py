@@ -1,4 +1,6 @@
 def solution(cards1, cards2, goal):
+    answer = "Yes"
+    
     cards1_idx = 0
     cards2_idx = 0
     
@@ -9,5 +11,5 @@ def solution(cards1, cards2, goal):
             cards2_idx += 1
         else:
             return "No"
-    
-    return "Yes"
+            
+    return answer
