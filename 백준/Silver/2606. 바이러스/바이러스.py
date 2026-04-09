@@ -1,11 +1,12 @@
 from collections import deque
 
-n = int(input())
-nn = int(input())
+N = int(input())
+edges = int(input())
 
-adjs = [[] * (n+1) for _ in range(n+1)]
+adjs = [[] for _ in range(N+1)]
 
-for _ in range(nn):
+
+for _ in range(edges):
 	a, b = map(int, input().split())
 	adjs[a].append(b)
 	adjs[b].append(a)
@@ -13,17 +14,18 @@ for _ in range(nn):
 q = deque()
 q.append(1)
 
-visited = [False] * (n+1)
+visited = [False] * (N+1)
 visited[1] = True
+
 count = 0
-
 while q:
-	cur = q.popleft()
+	node = q.popleft()
 
-	for adj in adjs[cur]:
+	for adj in adjs[node]:
 		if not visited[adj]:
+			count += 1
 			q.append(adj)
 			visited[adj] = True
-			count += 1
 
 print(count)
+
