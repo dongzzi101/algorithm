@@ -1,28 +1,21 @@
 def solution(record):
+    answer = []
+    
     user_map = {}
     
-    for user_info in record:
-        parts = user_info.split()
-        
-        if parts[0] in ["Enter", "Change"]:
-            uid = parts[1]
-            nickname = parts[2]
-            user_map[uid] = nickname
+    for line in record:
+        cmd = line.split(" ")
+        if cmd[0] != "Leave":
+            user_map[cmd[1]] = cmd[2]
     
-    logs = []
-    for user_info in record:
-        parts = user_info.split()
-
-        if parts[0] == "Enter":
-            logs.append((parts[1], "in"))
-        elif parts[0] == "Leave":
-            logs.append((parts[1], "out"))
     
-    answer = []
-    for uid, action in logs:
-        if action == "in":
-            answer.append(f"{user_map[uid]}님이 들어왔습니다.")
+    for line in record:
+        cmd = line.split(" ")
+        if cmd[0] == "Enter":
+            answer.append("%s님이 들어왔습니다." % user_map[cmd[1]])
+        elif cmd[0] == "Leave":
+            answer.append("%s님이 나갔습니다."% user_map[cmd[1]])
         else:
-            answer.append(f"{user_map[uid]}님이 나갔습니다.")
+            pass
     
     return answer
