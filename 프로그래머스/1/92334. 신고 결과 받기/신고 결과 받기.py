@@ -1,23 +1,26 @@
 def solution(id_list, report, k):
-    st = set()
+    reported_user = {}
+    count = {}
     
     for r in report:
-        a, b = r.split()
-        st.add((a, b))
+        user_id, reported_id = r.split()
+        if reported_id not in reported_user:
+            reported_user[reported_id] = set()
+        reported_user[reported_id].add(user_id)
     
-    count = {name : 0 for name in id_list}
-    report_set = {name : set() for name in id_list}
-    
-    for name1, name2 in st:
-        report_set[name1].add(name2)
-        count[name2] += 1
-    
+    for reported_id, user_id_list in reported_user.items():
+        if len(user_id_list) >= k:
+            for uid in user_id_list:
+                if uid not in count:
+                    count[uid] = 1
+                else:
+                    count[uid] += 1
     answer = []
-    for name in id_list:
-        mail_count = 0
-        for n in report_set[name]:
-             if count[n] >= k:
-                mail_count += 1
-        answer.append(mail_count)
+    
+    for i in range(len(id_list)):
+        if id_list[i] not in count:
+            answer.append(0)
+        else:
+            answer.append(count[id_list[i]])
     
     return answer
