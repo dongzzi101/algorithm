@@ -1,22 +1,27 @@
-import heapq
+def convert_time(time):
+    in, out = time.split(",")
+    convert_number(in)
+    convert_number(out)
+
+
+def convert_number(time):
+    hh, mm = time.split(":")
+    print(hh)
+    print(mm)
+    
+    
+    
+
 
 def solution(book_time):
+    answer = 0
     
-    def to_min(time):
-        h, m = map(int, time.split(":"))
-        return h * 60 + m
+    book_time.sort(key=lambda x : x[0])
+    for b in book_time:
+        convert_time(b)
     
-    book_time.sort(key=lambda x: x[0])
+    print(book_time)
     
-    heap = []  
     
-    for start, end in book_time:
-        start = to_min(start)
-        end = to_min(end) + 10 
-        
-        if heap and heap[0] <= start:
-            heapq.heappop(heap) 
-        
-        heapq.heappush(heap, end)  
     
-    return len(heap)
+    return answer
