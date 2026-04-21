@@ -1,4 +1,6 @@
 def solution(s):
+    answer = 0
+    
     stack = []
     
     for ch in s:
@@ -7,4 +9,5 @@ def solution(s):
         else:
             stack.append(ch)
     
-    return 1 if not stack else 0
+    
+    return 1 if len(stack) == 0 else 0
