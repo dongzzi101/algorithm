@@ -1,26 +1,29 @@
 def solution(dirs):
-    commands = {
-        "U": (1, 0),
-        "D": (-1, 0),
-        "R": (0, 1),
-        "L": (0, -1)
-    }
+    answer = set()
     
-    cur_y, cur_x = 0, 0
-    visited = set()
+    def is_valid(ny, nx):
+        return (-5 <= ny <= 5) and (-5 <= nx <= 5)
+    
+    def update_location(y, x, dir):
+        if dir == "U":
+            ny, nx = y+1, x
+        elif dir == "D":
+            ny, nx = y-1, x
+        elif dir == "L":
+            ny, nx = y, x-1
+        elif dir == "R":
+            ny, nx = y, x+1
+        
+        return ny, nx
+    
+    
+    y, x = 0, 0 
     
     for dir in dirs:
-        dy, dx = commands[dir]
-        
-        ny = cur_y + dy
-        nx = cur_x + dx
-        
-        if -5 <= ny <= 5 and -5 <= nx <= 5:
-            
-            if (cur_y, cur_x, ny, nx) not in visited:
-                visited.add((cur_y, cur_x, ny, nx))
-                visited.add((ny, nx, cur_y, cur_x))
-            
-            cur_y, cur_x = ny, nx
+        ny, nx = update_location(y, x, dir)
+        if is_valid(ny, nx):
+            answer.add((y, x, ny, nx))
+            answer.add((ny, nx, y, x))
+            y, x = ny, nx
     
-    return len(visited) // 2
+    return len(answer) // 2
