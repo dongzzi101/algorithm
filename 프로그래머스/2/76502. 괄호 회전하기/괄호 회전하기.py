@@ -1,29 +1,29 @@
+from collections import deque
+
 def solution(s):
-    answer = 0
+    q = deque(s)
+    count = 0
+    n = len(s)
     
-    def is_valid(s):
+    pair = {')': '(', ']': '[', '}': '{'}
+    
+    for _ in range(n):
         stack = []
-        pairs = {
-            ")": "(",
-            "]": "[",
-            "}": "{"
-        }
+        valid = True
         
-        for ch in s:
-            if ch in "([{":
-                stack.append(ch)
+        for ch in q:
+            if ch in pair:
+                if stack and stack[-1] == pair[ch]:
+                    stack.pop()
+                else:
+                    valid = False
+                    break
             else:
-                if len(stack) == 0:
-                    return 0
-                
-                top = stack.pop()
-                if pairs[ch] != top:
-                    return 0
+                stack.append(ch)
         
-        return 1 if not stack else 0
+        if valid and not stack:
+            count += 1
+        
+        q.append(q.popleft())
     
-    for _ in range(len(s)):
-        answer += is_valid(s)
-        s = s[1:] + s[0]
-    
-    return answer
+    return count
