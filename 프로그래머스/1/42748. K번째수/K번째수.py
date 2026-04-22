@@ -2,9 +2,9 @@ def solution(array, commands):
     answer = []
     
     for command in commands:
-        i, j, k = command[0], command[1], command[2]     
-        new_arr = array[i-1:j]
+        start, end, target = command
+        new_arr = array[start-1 : end]
         new_arr.sort()
-        answer.append(new_arr[k-1])
+        answer.append(new_arr[target-1])
     
     return answer
