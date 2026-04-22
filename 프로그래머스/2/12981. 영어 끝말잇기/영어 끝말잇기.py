@@ -1,13 +1,12 @@
 def solution(n, words):
-    used = set()
-
-    for i in range(len(words)):
-        if words[i] in used:
+    used_words = set()
+    prev_word = words[0][0]
+    
+    for i, word in enumerate(words):
+        if word in used_words or word[0] != prev_word:
             return [(i % n) + 1, (i // n) + 1]
 
-        if i > 0 and words[i - 1][-1] != words[i][0]:
-            return [(i % n) + 1, (i // n) + 1]
-
-        used.add(words[i])
+        used_words.add(word)
+        prev_word = word[-1]
     
     return [0, 0]
