@@ -1,19 +1,16 @@
 def solution(s):
-    answer = []
+    s = s[2:-2].split("},{")
+    s = sorted(s, key=len)
     
-    s = s[2:-2]
-    parts = s.split("},{")
-    
-    parts = [list(map(int, p.split(','))) for p in parts]
-    
-    parts.sort(key=lambda x: len(x))
-    
+    result = []
     seen = set()
     
-    for part in parts:
-        for num in part:
+    for group in s:
+        for num in group.split(","):
+            num = int(num)
+            
             if num not in seen:
-                answer.append(num)
                 seen.add(num)
+                result.append(num)
     
-    return answer
+    return result
