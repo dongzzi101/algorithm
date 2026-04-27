@@ -2,8 +2,7 @@ from collections import deque
 
 n = int(input())
 
-
-adjs = [[] * n for _ in range(n+1)]
+adjs = [[] for _ in range(n+1)]
 
 for _ in range(n-1):
 	a, b = map(int, input().split())
@@ -27,5 +26,5 @@ while q:
 			visited[adj] = True
 			q.append(adj)
 
-
 print(*parents[2:])
+
