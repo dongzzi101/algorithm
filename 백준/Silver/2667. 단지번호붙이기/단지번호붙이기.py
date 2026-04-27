@@ -2,43 +2,42 @@ from collections import deque
 
 n = int(input())
 
-board = [[0]*(n+1)]
-for _ in range(n):
-    board.append([0] + list(map(int, input())))
+graph = [list(map(int, input())) for _ in range(n)]
 
-visited = [[False]*(n+1) for _ in range(n+1)]
+visited = [[False] * n for _ in range(n)]
 
-dy = [1, 0, -1, 0]
+dy = [1, 0 , -1, 0]
 dx = [0, 1, 0, -1]
 
 def bfs(y, x):
-    q = deque([(y, x)])
-    visited[y][x] = True
-    count = 1
+	q = deque()
+	q.append((y, x))
+	visited[y][x] = True
+	count = 1
+	
+	while q:
+		y, x = q.popleft()
 
-    while q:
-        y, x = q.popleft()
+		for i in range(4):
+			ny = y + dy[i]
+			nx = x + dx[i]
 
-        for i in range(4):
-            ny = y + dy[i]
-            nx = x + dx[i]
+			if 0 <= ny < n and 0 <= nx < n:
+				if not visited[ny][nx] and graph[ny][nx] == 1:
+					q.append((ny, nx))
+					visited[ny][nx] = True
+					count += 1
 
-            if 1 <= ny <= n and 1 <= nx <= n:
-                if not visited[ny][nx] and board[ny][nx] == 1:
-                    visited[ny][nx] = True
-                    q.append((ny, nx))
-                    count += 1
-    return count
+	return count
 
-count_list = []
+result = []
+for y in range(n):
+	for x in range(n):
+		if graph[y][x] == 1 and not visited[y][x]:
+			count = bfs(y, x)
+			result.append(count)
 
-for y in range(1, n+1):
-    for x in range(1, n+1):
-        if board[y][x] == 1 and not visited[y][x]:
-            count_list.append(bfs(y, x))
-
-count_list.sort()
-
-print(len(count_list))
-for c in count_list:
-    print(c)
+result.sort()
+print(len(result))
+for r in result:
+	print(r)
