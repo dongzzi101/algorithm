@@ -1,10 +1,8 @@
 def solution(nums):
-    max_get = len(nums) // 2
-    nums = list(set(nums))
+    num_set = set(nums)
     
-    if max_get <= len(nums):
-        return max_get
+    if len(num_set) <= (len(nums) / 2):
+        return len(num_set)
     else:
-        return len(nums)
-    
+        return len(nums) / 2
     
