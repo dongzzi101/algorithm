@@ -1,11 +1,15 @@
-from collections import deque
-
 def solution(arr):
-    q = deque()
-    q.append(arr[0])
+    answer = []
+    before = arr[0]
+    answer.append(arr[0])
     
-    for x in arr[1:]:
-        if q[-1] != x:
-            q.append(x)
-
-    return list(q)
+    for idx, num in enumerate(arr):
+        if idx > 0:
+            if before == arr[idx]:
+                continue
+            else:
+                answer.append(num)
+        
+        before = arr[idx]
+        
+    return answer
