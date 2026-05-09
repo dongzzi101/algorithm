@@ -1,12 +1,13 @@
 def solution(s):
     answer = ''
-    prev = ' '
     
-    for c in s:
-        if prev == ' ':
-            answer += c.upper()
-        else:
-            answer += c.lower()
-        prev = c
+    parts = s.split(' ')
     
-    return answer
+    for part in parts:
+        if part:
+            answer += part[0].upper()
+            answer += part[1:].lower()
+        
+        answer += ' '
+    
+    return answer[:-1]
