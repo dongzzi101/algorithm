@@ -1,34 +1,27 @@
 def solution(lottos, win_nums):
-    answer = []
-    count = 0
     zero_count = 0
-
-    for num in win_nums:
-        if num in lottos:
-            count += 1
-
+    
     for lotto in lottos:
         if lotto == 0:
             zero_count += 1
-
-    best_count = count + zero_count
-    worst_count = count
-
-    def rank(n):
-        if n == 6:
-            return 1
-        elif n == 5:
-            return 2
-        elif n == 4:
-            return 3
-        elif n == 3:
-            return 4
-        elif n == 2:
-            return 5
-        else:
-            return 6
-
-    answer.append(rank(best_count))
-    answer.append(rank(worst_count))
-
-    return answer
+    
+    count = 0
+    for win_num in win_nums:
+        if win_num in lottos:
+            count += 1
+    
+    max_winning = count + zero_count
+    min_winning = count
+    
+    rank = {
+        6:1,
+        5:2,
+        4:3,
+        3:4,
+        2:5,
+        1:6,
+        0:6
+    }
+    
+    
+    return [rank[max_winning], rank[min_winning] ]
