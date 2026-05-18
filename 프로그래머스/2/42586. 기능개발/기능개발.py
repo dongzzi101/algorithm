@@ -2,20 +2,26 @@ import math
 
 def solution(progresses, speeds):
     answer = []
+
+    days = []
+
+    for progress, speed in zip(progresses, speeds):
+        remain = 100 - progress
+        day = math.ceil(remain / speed)
+        days.append(day)
+        
+    current = days[0]
+    count = 1
     
-    n = len(progresses)
-    days_left = [math.ceil((100 - progresses[i]) / speeds[i]) for i in range(n)]
-    
-    count = 0
-    max_day = days_left[0]
-    
-    for i in range(n):
-        if days_left[i] <= max_day:
+    # current = 5 days[1] = 10, days[2] = 1, days[3] = 1, days[4] = 20
+    for i in range(1, len(days)):
+        if days[i] <= current:
             count += 1
         else:
             answer.append(count)
+            current = days[i]
             count = 1
-            max_day = days_left[i]
-    
+
     answer.append(count)
-    return answer  
+
+    return answer
