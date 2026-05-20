@@ -1,19 +1,20 @@
 def solution(participant, completion):
     answer = ''
     
-    participant_dict = {}
+    participants_map = {}
     
     for p in participant:
-        if p in participant_dict:
-            participant_dict[p] += 1
+        if p in participants_map:
+            participants_map[p] += 1
         else:
-            participant_dict[p] = 0
+            participants_map[p] = 0
     
     for c in completion:
-        participant_dict[c] -= 1
+        if c in participants_map:
+            participants_map[c] -= 1
     
-    for pd in participant_dict:
-        if participant_dict[pd] >= 0:
-            answer = pd
-                
+    for key, value in participants_map.items():
+        if value == 0:
+            answer += key
+    
     return answer
