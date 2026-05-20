@@ -1,15 +1,14 @@
 def solution(arr):
     answer = []
-    before = arr[0]
-    answer.append(arr[0])
     
-    for idx, num in enumerate(arr):
-        if idx > 0:
-            if before == arr[idx]:
-                continue
-            else:
-                answer.append(num)
-        
-        before = arr[idx]
-        
+    n = len(arr)
+    
+    temp = arr[0]
+    answer.append(temp)
+    for i in range(1, n):
+        if arr[i] == temp:
+            continue
+        temp = arr[i]
+        answer.append(temp)
+
     return answer
