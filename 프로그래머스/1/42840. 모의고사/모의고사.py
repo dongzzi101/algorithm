@@ -1,21 +1,45 @@
 def solution(answers):
+    # patterns = [
+    #     [1, 2, 3, 4, 5],
+    #     [2, 1, 2, 3, 2, 4, 2, 5],
+    #     [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+    # ]
+    
     answer = []
-    patterns = [
-        [1, 2, 3, 4, 5],
-        [2, 1, 2, 3, 2, 4, 2, 5],
-        [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
-    ]
-    scores = [0] * 3
     
-    for i, answer in enumerate(answers):
-        for j, pattern in enumerate(patterns):
-            if answer == pattern[i % len(pattern)]:
-                scores[j] += 1
+    supo1 = [1, 2, 3, 4, 5]
+    supo2 = [2, 1, 2, 3, 2, 4, 2, 5]
+    supo3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
     
-    max_score = max(scores)
-    highest_score = []
-    for i, score in enumerate(scores):
-        if score == max_score:
-            highest_score.append(i+1)
+    supo1_answer_count = 0
+    supo2_answer_count = 0
+    supo3_answer_count = 0
     
-    return highest_score
+    
+    for i in range(len(answers)):
+        if answers[i] == supo1[i % len(supo1)]:
+            supo1_answer_count += 1
+            
+    for i in range(len(answers)):
+        if answers[i] == supo2[i % len(supo2)]:
+            supo2_answer_count += 1
+            
+    for i in range(len(answers)):
+        if answers[i] == supo3[i % len(supo3)]:
+            supo3_answer_count += 1
+    
+    result = []
+    
+    result.append(supo1_answer_count)
+    result.append(supo2_answer_count)
+    result.append(supo3_answer_count)
+    
+    max_score = max(result)
+    
+    for i in range(len(result)):
+        if result[i] == max_score:
+            answer.append(i+1)
+    
+    answer.sort()
+    
+    return answer
