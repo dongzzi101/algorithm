@@ -1,26 +1,24 @@
 def solution(id_list, report, k):
-    reported_user = {}
-    count = {}
+    report_map = {}
     
     for r in report:
-        user_id, reported_id = r.split()
-        if reported_id not in reported_user:
-            reported_user[reported_id] = set()
-        reported_user[reported_id].add(user_id)
-    
-    for reported_id, user_id_list in reported_user.items():
-        if len(user_id_list) >= k:
-            for uid in user_id_list:
-                if uid not in count:
-                    count[uid] = 1
-                else:
-                    count[uid] += 1
-    answer = []
-    
-    for i in range(len(id_list)):
-        if id_list[i] not in count:
-            answer.append(0)
+        user_id, reported_user = r.split()
+        
+        if reported_user in report_map:
+            report_map[reported_user].add(user_id)
         else:
-            answer.append(count[id_list[i]])
+            report_map[reported_user] = {user_id}
     
-    return answer
+    mail_count = {user: 0 for user in id_list}
+    
+    for reported_user, senders in report_map.items():
+        if len(senders) >= k:
+            for sender in senders:
+                mail_count[sender] += 1
+    
+    result = []
+    
+    for user in id_list:
+        result.append(mail_count[user])
+    
+    return result
