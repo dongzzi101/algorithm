@@ -1,56 +1,66 @@
 from collections import deque
 
 def solution(storage, requests):
-    storage = [list(row) for row in storage]
-    
     n = len(storage)
     m = len(storage[0])
     
-    def remove_storage(request):
-        nonlocal storage
+    
+    padding_storage = []
+    padding_storage.append(['.'] * (m + 2))
+
+    for row in storage:
+        padding_storage.append(['.'] + list(row) + ['.'])
+
+    padding_storage.append(['.'] * (m + 2))
+    
+    max_y = n + 2
+    max_x = m + 2
+    
+    dy = [-1, 1, 0, 0]
+    dx = [0, 0, -1, 1]
+    
+    def only_container(target_char):
+        visited = [[False] * max_x for _ in range(max_y)]
         
-        new = [[0] * (m + 2) for _ in range(n + 2)]
-        for i in range(n):
-            for j in range(m):
-                new[i+1][j+1] = storage[i][j]
+        q = deque([(0, 0)])
+        visited[0][0] = True
         
-        if len(request) >= 2:
-            for i in range(1, n+1):
-                for j in range(1, m+1):
-                    if new[i][j] == request[0]:
-                        new[i][j] = 0
+        targets = set() 
         
-        else:
-            visited = [[False]*(m+2) for _ in range(n+2)]
-            q = deque([(0, 0)])
-            visited[0][0] = True
+        while q:
+            y, x = q.popleft()
             
-            to_remove = []
-            
-            while q:
-                y, x = q.popleft()
+            for i in range(4):
+                ny = y + dy[i]
+                nx = x + dx[i]
                 
-                for dy, dx in [(-1,0),(1,0),(0,-1),(0,1)]:
-                    ny, nx = y+dy, x+dx
-                    
-                    if 0 <= ny < n+2 and 0 <= nx < m+2 and not visited[ny][nx]:
+                if 0 <= ny < max_y and 0 <= nx < max_x and not visited[ny][nx]:
+                    if padding_storage[ny][nx] == '.':
                         visited[ny][nx] = True
-                        
-                        if new[ny][nx] == 0:
-                            q.append((ny, nx))
-                        
-                        elif new[ny][nx] == request:
-                            to_remove.append((ny, nx))
-            
-            for y, x in to_remove:
-                new[y][x] = 0
+                        q.append((ny, nx))
+                    elif padding_storage[ny][nx] == target_char:
+                        visited[ny][nx] = True
+                        targets.add((ny, nx))
         
-        for i in range(n):
-            for j in range(m):
-                storage[i][j] = new[i+1][j+1]
-    
-    for request in requests:
-        remove_storage(request)
-    
-    count = sum(row.count(0) for row in storage)
-    return n*m - count
+        for y, x in targets:
+            padding_storage[y][x] = '.'
+            
+    def use_crane(target_char):
+        for y in range(max_y):
+            for x in range(max_x):
+                if padding_storage[y][x] == target_char:
+                    padding_storage[y][x] = '.'
+
+    for req in requests:
+        if len(req) == 1:
+            only_container(req)
+        else:
+            use_crane(req[0]) 
+            
+    answer = 0
+    for y in range(max_y):
+        for x in range(max_x):
+            if padding_storage[y][x] != '.': 
+                answer += 1
+                
+    return answer
