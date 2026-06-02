@@ -1,15 +1,19 @@
+from collections import deque
+
 def solution(cards1, cards2, goal):
-    answer = "Yes"
+    answer = 'Yes'
     
-    cards1_idx = 0
-    cards2_idx = 0
+    cards1 = deque(cards1)
+    cards2 = deque(cards2)
     
     for word in goal:
-        if cards1_idx < len(cards1) and word == cards1[cards1_idx]:
-            cards1_idx += 1
-        elif cards2_idx < len(cards2) and word == cards2[cards2_idx]:
-            cards2_idx += 1
+        if cards1 and word == cards1[0]:
+            cards1.popleft()
+        elif cards2 and word == cards2[0]:
+            cards2.popleft()
         else:
-            return "No"
+            result = "No"
+            return result
             
+    
     return answer
