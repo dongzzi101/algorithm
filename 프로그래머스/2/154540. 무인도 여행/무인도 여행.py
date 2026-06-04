@@ -1,47 +1,43 @@
 from collections import deque
 
-
 def solution(maps):
     answer = []
     
-    dy = [1, 0 , -1 ,0]
+    dy = [1, 0, -1, 0]
     dx = [0, 1, 0, -1]
     
-    row = len(maps[0])
-    col = len(maps)
+    visited = [[False] * len(maps[0]) for _ in range(len(maps))]
     
-    q = deque()
-    visited = [[False] * row for _ in range(col)]
-    
-    def bfs(y, x):
-        total = int(maps[y][x])  # 시작점 포함
+    def bfs(start_y, start_x):
+        result = int(maps[start_y][start_x])
 
         q = deque()
-        q.append((y, x))
-        visited[y][x] = True
-
+        q.append((start_y, start_x))
+        visited[start_y][start_x] = True
+        
+        
         while q:
             y, x = q.popleft()
-
+            
             for i in range(4):
-                ny = y + dy[i]
-                nx = x + dx[i]
+                ny = dy[i] + y
+                nx = dx[i] + x
 
-                if (0 <= ny < col) and (0 <= nx < row):
-                    if maps[ny][nx] != "X" and not visited[ny][nx]:
+                if (0 <= ny < len(maps) and (0 <= nx < len(maps[0]))):
+                    if not visited[ny][nx] and maps[ny][nx] != 'X':
                         q.append((ny, nx))
-                        visited[ny][nx] = True
-                        total += int(maps[ny][nx])
-
-        return total
+                        visited[ny][nx] = True 
+                        result += int(maps[ny][nx])
         
-    for y in range(col):
-        for x in range(row):
-            if maps[y][x] != "X" and not visited[y][x]:
-                    total = bfs(y, x)
-                    answer.append(total)
-    answer.sort()
+        return result
+    
+    for y in range(len(maps)):
+        for x in range(len(maps[0])):
+            if maps[y][x] != 'X':
+                if not visited[y][x]:
+                    total_count = bfs(y,x)
+                    answer.append(total_count)
     if len(answer) == 0:
         return [-1]
     
-    return answer
+    return sorted(answer)
