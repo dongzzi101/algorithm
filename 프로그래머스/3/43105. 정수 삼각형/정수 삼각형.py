@@ -1,16 +1,7 @@
 def solution(triangle):
-    dp = triangle 
-
-    for y in range(1, len(triangle)):
-        for x in range(len(triangle[y])):
-            
-            if x == 0:
-                dp[y][x] += dp[y-1][x]
-            
-            elif x == y:
-                dp[y][x] += dp[y-1][x-1]
-            
-            else:
-                dp[y][x] += max(dp[y-1][x-1], dp[y-1][x])
-
-    return max(dp[-1])
+    
+    for row in range(len(triangle) - 2, -1, -1):
+        for col in range(len(triangle[row])):
+            triangle[row][col] += max(triangle[row+1][col], triangle[row+1][col+1])
+    
+    return triangle[0][0]
