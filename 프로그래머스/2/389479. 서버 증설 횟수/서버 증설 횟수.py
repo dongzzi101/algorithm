@@ -1,23 +1,21 @@
-from collections import deque
-
 def solution(players, m, k):
-    server_upgrade_count = 0
+    answer = 0
+    active_servers = 0
     
-    servers = deque()  
+    added_servers = [0] * 24
     
-    for i, player in enumerate(players):
-        while servers and servers[0] <= i:
-            servers.popleft()
+    for i in range(24):
         
-        need = player // m
+        if i >= k:
+            active_servers -= added_servers[i-k]
         
-        current = len(servers)
+        needed_servers = players[i] // m
         
-        if need > current:
-            add = need - current
-            server_upgrade_count += add
+        if active_servers < needed_servers:
+            num_to_add = needed_servers - active_servers
             
-            for _ in range(add):
-                servers.append(i + k)
+            answer += num_to_add
+            active_servers += num_to_add
+            added_servers[i] = num_to_add
     
-    return server_upgrade_count
+    return answer
