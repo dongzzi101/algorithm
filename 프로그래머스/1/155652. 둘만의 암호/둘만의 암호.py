@@ -1,22 +1,19 @@
 def solution(s, skip, index):
     answer = ''
-    skip_set = set(skip) 
     
     for ch in s:
-        count = 0
-        current = ord(ch)
+        current_ord = ord(ch)
+        moved = 0
         
-        while count < index:
-            current += 1
+        while moved < index:
+            current_ord += 1
             
-            if current > ord('z'):
-                current = ord('a')
+            if current_ord > ord('z'):
+                current_ord = ord('a')
             
-            if chr(current) in skip_set:
-                continue
-            
-            count += 1
-        
-        answer += chr(current)
+            if chr(current_ord) not in skip:
+                moved += 1
+    
+        answer += chr(current_ord)
     
     return answer
