@@ -1,14 +1,10 @@
 def solution(arr):
     answer = []
+    answer.append(arr[0])
     
-    n = len(arr)
+    for i in range(1, len(arr)):
+        
+        if arr[i-1] != arr[i]:
+            answer.append(arr[i])
     
-    temp = arr[0]
-    answer.append(temp)
-    for i in range(1, n):
-        if arr[i] == temp:
-            continue
-        temp = arr[i]
-        answer.append(temp)
-
     return answer
