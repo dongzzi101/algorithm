@@ -1,12 +1,17 @@
 def solution(sizes):
-    width_max = 0
-    height_max = 0
+    answer = 0
+    
+    max_w = 1
+    max_h = 1
     
     for size in sizes:
-        w = max(size)
-        h = min(size)
+        w, h = size
         
-        width_max = max(width_max, w)
-        height_max = max(height_max, h)
+        if h > w:
+            w, h = h, w
+            
+        max_w = max(max_w, w)
+        max_h = max(max_h, h)
     
-    return width_max * height_max
+    answer = max_w * max_h        
+    return answer
