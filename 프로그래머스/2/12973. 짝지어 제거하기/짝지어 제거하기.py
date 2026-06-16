@@ -6,8 +6,11 @@ def solution(s):
     for ch in s:
         if stack and stack[-1] == ch:
             stack.pop()
-        else:
-            stack.append(ch)
+            continue
+        
+        stack.append(ch)
     
+    if len(stack) == 0:
+        return 1
     
-    return 1 if len(stack) == 0 else 0
+    return answer
