@@ -1,40 +1,39 @@
 def solution(park, routes):
-    answer = []
-    
-    height = len(park)
-    width = len(park[0])
-    
-    def find_start_pos():
-        for y in range(height):
-            for x in range(width):
-                if park[y][x] == 'S':
-                    return y, x
-    
-    move = {
-        'N' : (-1, 0),
-        'S' : (1, 0),
-        'W' : (0, -1),
-        'E' : (0, 1)
+    dir_maps = {
+        "N": (-1, 0),
+        "S": (1, 0),
+        "W": (0, -1),
+        "E": (0, 1)
     }
     
-    cur_y, cur_x = find_start_pos()
+    H = len(park)
+    W = len(park[0])
     
+    current_y, current_x = 0, 0
+    for y in range(H):
+        for x in range(W):
+            if park[y][x] == "S":
+                current_y, current_x = y, x
+                break
+                
     for route in routes:
-        direction, command = route.split()
-        distance = int(command)
+        op, n = route.split()
+        n = int(n)
         
-        temp_y, temp_x = cur_y, cur_x
+        dy, dx = dir_maps[op]
+        
+        ny, nx = current_y, current_x
         is_possible = True
         
-        for _ in range(distance):
-            temp_y += move[direction][0]
-            temp_x += move[direction][1]
-        
-            if not (0 <= temp_y < height and 0 <= temp_x < width) or park[temp_y][temp_x] == 'X':
-                    is_possible = False
-                    break
+        for _ in range(n):
+            ny += dy
+            nx += dx
+            
+            if not (0 <= ny < H and 0 <= nx < W) or park[ny][nx] == "X":
+                is_possible = False
+                break
         
         if is_possible:
-            cur_y, cur_x = temp_y, temp_x
+            current_y, current_x = ny, nx
             
-    return [cur_y, cur_x]
+    return [current_y, current_x]
