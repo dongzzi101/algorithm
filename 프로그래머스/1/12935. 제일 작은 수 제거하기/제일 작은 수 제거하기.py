@@ -1,11 +1,15 @@
 def solution(arr):
     answer = []
-    n = len(arr)
     
-    if n == 1:
+    if len(arr) == 1:
         return [-1]
-    else:
-        min_value = min(arr)
-        arr.remove(min_value)
-        return arr
     
+    min_num = min(arr)
+    
+    for num in arr:
+        if num == min_num:
+            continue
+        
+        answer.append(num)
+                    
+    return answer
