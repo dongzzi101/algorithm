@@ -1,21 +1,33 @@
-from collections import Counter
-
 def solution(X, Y):
-    cx = Counter(X)
-    cy = Counter(Y)
+    x = list(map(int, X))
+    y = list(map(int, Y))
     
-    result = []
+    x_map = {}
+    y_map = {}
     
-    for num in '0123456789':   
-        count = min(cx[num], cy[num])
-        result.append(num * count)
+    for num in x:
+        if num in x_map:
+            x_map[num] += 1
+        else:
+            x_map[num] = 1
+            
+    for num in y:
+        if num in y_map:
+            y_map[num] += 1
+        else:
+            y_map[num] = 1
     
-    answer = ''.join(result)
+    answer = ''
     
-    if not answer:
+    for num in range(9, -1, -1):
+        if num in x_map and num in y_map:
+            common_min = min(x_map[num], y_map[num])
+            answer += str(num) * common_min
+    
+    if len(answer) == 0:
         return "-1"
     
-    if set(answer) == {'0'}:
+    if answer.startswith("0"):
         return "0"
     
-    return ''.join(sorted(answer, reverse=True))
+    return answer
